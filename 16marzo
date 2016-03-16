@@ -1,0 +1,25 @@
+num <- sample(5:8, 60, replace=TRUE)
+pib <- sample(0:5, 60, replace=TRUE)
+ocu <- sample(40:60, 60, replace=TRUE)
+des <- sample(3:8, 60, replace=TRUE)
+tabla <- data.frame(num,pib,ocu,des)
+tabla
+tabla2 <-tabla[c(1:12,49:60),]
+tabla2
+tabla3<- ts(tabla, start=2010, freq=12)
+tabla3
+num2<- ts(tabla3[,1], start=2010, freq=12)
+pib2<- ts(tabla3[,2], start=2010,freq=12)
+ocu2<- ts(tabla3[,3], start=2010,freq=12)
+des2<- ts(tabla3[,4], start=2010,freq=12)
+multiple<- ts.intersect(num2,ocu2)
+multiple2<- ts.intersect(pib2,des2)
+plot(multiple, main="Profesionistas y Ocupados", xlab="Años", ylab="Cantidad", col="deepskyblue4")
+plot(multiple2, main="PIB y Desocupados", xlab="Años", ylab="Cantidad", col="deepskyblue4")
+multiple3<- ts.intersect(multiple,multiple2)
+plot(multiple3, main="Serie Multiple", xlab="Años", ylab="Cantidad", col="deepskyblue4")
+layout(1:2)
+multiple4<-window(multiple3, start=c(2014,1), end=c(2014,12))
+plot(multiple4, main="Serie Multiple 2014", xlab="Años", ylab="Cantidad", col="deepskyblue4")
+multiple4
+#Encontramos muchas variaciones al ser datos aleatorios, no como tal un patrón de comportamiento, pero se aprecia en el inter de año a año una baja de manera constante.
